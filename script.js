@@ -36,6 +36,8 @@ function initGlobalObject() {
   //oGameData.gameField = ['', '', 'X', '', 'X', '', 'X', '', ''];
   //oGameData.gameField = ['X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O'];
 
+  // legge alle gameFields inni et objekt???
+
   //Indikerar tecknet som skall användas för spelare ett.
   oGameData.playerOne = "X";
 
@@ -70,6 +72,7 @@ function initGlobalObject() {
   oGameData.timeRef = document.querySelector("#errorMsg");
 }
 
+
 /**
  * Kontrollerar för tre i rad genom att anropa funktionen checkWinner() och checkForDraw().
  * Returnerar 0 om spelet skall fortsätta,
@@ -78,11 +81,40 @@ function initGlobalObject() {
  * returnerar 3 om det är oavgjort.
  * Funktionen tar inte emot några värden.
  */
-function checkForGameOver() {}
+
+
+
+function checkForGameOver() {
+
+
+  if (checkWinner === playerOne) {
+    console.log(playerOne);
+    
+  } else if (checkWinner === playerTwo) {
+    console.log(playerTwo);
+    return 2
+  } else if (checkForDraw) {
+
+  } else (){
+    console.log();
+    
+  };
+}
 
 // Säg till om ni vill få pseudokod för denna funktion
 // Viktigt att funktionen returnerar true eller false baserat på om den inskickade spelaren är winner eller ej
-function checkWinner(playerIn) {}
+function checkWinner(playerIn) {
+  let winCombinations = [
+    [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [2,4,6], [0,4,8]
+  ]; 
+  for (let i = 0; i <= winCombinations.length; i++) {
+    console.log(winCombination[i]);
+// loope igjennom winCombination plass i ovenfor
+// kontrollere verdien på de ulike plassene i arrayen (skal matche playerIn (den som spiller nå/playerOne eller playerTwo))
+
+// eller lage variabler på tallene inni hver array og gjøre kontroller på dem (enklere sett)
+  }
+}
 
 //Kontrollera om alla platser i oGameData.GameField är fyllda. Om sant returnera true, annars false.
 function checkForDraw() {}
