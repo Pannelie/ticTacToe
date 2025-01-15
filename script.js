@@ -72,7 +72,6 @@ function initGlobalObject() {
   oGameData.timeRef = document.querySelector("#errorMsg");
 }
 
-
 /**
  * Kontrollerar för tre i rad genom att anropa funktionen checkWinner() och checkForDraw().
  * Returnerar 0 om spelet skall fortsätta,
@@ -82,37 +81,47 @@ function initGlobalObject() {
  * Funktionen tar inte emot några värden.
  */
 
-
-
 function checkForGameOver() {
+  //currentPlayer sätts temporärt för testning
+  oGameData.currentPlayer = `X`;
 
+  let winner = checkWinner(oGameData.currentPlayer);
+  console.log(winner);
 
-  if (checkWinner === playerOne) {
-    console.log(playerOne);
-    
-  } else if (checkWinner === playerTwo) {
-    console.log(playerTwo);
-    return 2
-  } else if (checkForDraw) {
+  // if (checkWinner === playerOne) {
+  //   console.log(playerOne);
 
-  } else (){
-    console.log();
-    
-  };
+  // } else if (checkWinner === playerTwo) {
+  //   console.log(playerTwo);
+  //   return 2
+  // } else if (checkForDraw) {
+
+  // } else{
+  //   console.log();
+
+  // }
 }
 
 // Säg till om ni vill få pseudokod för denna funktion
 // Viktigt att funktionen returnerar true eller false baserat på om den inskickade spelaren är winner eller ej
 function checkWinner(playerIn) {
   let winCombinations = [
-    [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [2,4,6], [0,4,8]
-  ]; 
-  for (let i = 0; i <= winCombinations.length; i++) {
-    console.log(winCombination[i]);
-// loope igjennom winCombination plass i ovenfor
-// kontrollere verdien på de ulike plassene i arrayen (skal matche playerIn (den som spiller nå/playerOne eller playerTwo))
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [2, 4, 6],
+    [0, 4, 8],
+  ];
+  for (let i = 0; i < winCombinations.length; i++) {
+    console.log(winCombinations[i]);
 
-// eller lage variabler på tallene inni hver array og gjøre kontroller på dem (enklere sett)
+    // eller lage variabler på tallene inni hver array og gjøre kontroller på dem (enklere sett)
+    let array = winCombinations[i];
+    let zero = array[0];
+    console.log(zero);
   }
 }
 
