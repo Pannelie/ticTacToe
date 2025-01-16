@@ -1,4 +1,5 @@
 "use strict";
+// TEST KOMMENTAR
 
 /**
  * Globalt objekt som innehåller de attribut som ni skall använda.
