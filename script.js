@@ -1,6 +1,8 @@
 "use strict";
+// Hej syns det här?
 
 /**
+ * Hej syns det här?
  * Globalt objekt som innehåller de attribut som ni skall använda.
  * Initieras genom anrop till funktionern initGlobalObject().
  */
