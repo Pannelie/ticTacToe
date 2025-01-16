@@ -26,7 +26,7 @@ window.addEventListener("load", () => {
  */
 function initGlobalObject() {
   //Datastruktur för vilka platser som är lediga respektive har brickor
-  //Genom at fylla i här med antingen X eler O kan ni testa era rättningsfunktioner
+  //Genom at fylla i här med antingen X eler O kan ni testa era rättningsfunktioner.
   oGameData.gameField = ["", "", "", "", "", "", "", "", ""];
 
   /* Testdata för att testa rättningslösning */
