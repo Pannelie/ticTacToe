@@ -1,5 +1,5 @@
 "use strict";
-// Hej syns det här?
+// TEST KOMMENTAR
 
 /**
  * Hej syns det här?
