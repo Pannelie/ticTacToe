@@ -28,9 +28,6 @@ window.addEventListener("load", () => {
  */
 function initGlobalObject() {
   //Datastruktur för vilka platser som är lediga respektive har brickor
-<<<<<<< HEAD
-  //Genom at fylla i här med antingen X eler O kan ni testa era rättningsfunktioner
-=======
   //Genom at fylla i här med antingen X eler O kan ni testa era rättningsfunktioner.
   oGameData.gameField = ["X", "X", "X", "", "", "", "", "", ""];
 
@@ -41,11 +38,8 @@ function initGlobalObject() {
   //oGameData.gameField = ['', '', 'X', '', 'X', '', 'X', '', ''];
   //oGameData.gameField = ['X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O'];
 
-<<<<<<< HEAD
-=======
   // legge alle gameFields inni et objekt???
 
->>>>>>> e27afec0a434823d6e1658d78a3de9cfeda7cc29
   //Indikerar tecknet som skall användas för spelare ett.
   oGameData.playerOne = "X";
 
