@@ -26,7 +26,11 @@ window.addEventListener("load", () => {
  */
 function initGlobalObject() {
   //Datastruktur för vilka platser som är lediga respektive har brickor
+<<<<<<< HEAD
   //Genom at fylla i här med antingen X eler O kan ni testa era rättningsfunktioner
+=======
+  //Genom at fylla i här med antingen X eler O kan ni testa era rättningsfunktioner.
+>>>>>>> e27afec0a434823d6e1658d78a3de9cfeda7cc29
   oGameData.gameField = ["", "", "", "", "", "", "", "", ""];
 
   /* Testdata för att testa rättningslösning */
@@ -36,6 +40,11 @@ function initGlobalObject() {
   //oGameData.gameField = ['', '', 'X', '', 'X', '', 'X', '', ''];
   //oGameData.gameField = ['X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O'];
 
+<<<<<<< HEAD
+=======
+  // legge alle gameFields inni et objekt???
+
+>>>>>>> e27afec0a434823d6e1658d78a3de9cfeda7cc29
   //Indikerar tecknet som skall användas för spelare ett.
   oGameData.playerOne = "X";
 
@@ -78,11 +87,58 @@ function initGlobalObject() {
  * returnerar 3 om det är oavgjort.
  * Funktionen tar inte emot några värden.
  */
+<<<<<<< HEAD
 function checkForGameOver() {}
 
 // Säg till om ni vill få pseudokod för denna funktion
 // Viktigt att funktionen returnerar true eller false baserat på om den inskickade spelaren är winner eller ej
 function checkWinner(playerIn) {}
+=======
+
+function checkForGameOver() {
+  //currentPlayer sätts temporärt för testning
+  oGameData.currentPlayer = `X`;
+
+  let winner = checkWinner(oGameData.currentPlayer);
+  console.log(winner);
+
+  // if (checkWinner === playerOne) {
+  //   console.log(playerOne);
+
+  // } else if (checkWinner === playerTwo) {
+  //   console.log(playerTwo);
+  //   return 2
+  // } else if (checkForDraw) {
+
+  // } else{
+  //   console.log();
+
+  // }
+}
+
+// Säg till om ni vill få pseudokod för denna funktion
+// Viktigt att funktionen returnerar true eller false baserat på om den inskickade spelaren är winner eller ej
+function checkWinner(playerIn) {
+  let winCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8], // Rows
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8], // Columns
+    [2, 4, 6],
+    [0, 4, 8], // Diangonals
+  ];
+  for (let i = 0; i < winCombinations.length; i++) {
+    console.log(winCombinations[i]);
+
+    // eller lage variabler på tallene inni hver array og gjøre kontroller på dem (enklere sett)
+    let array = winCombinations[i];
+    let zero = array[0];
+    console.log(zero);
+  }
+}
+>>>>>>> e27afec0a434823d6e1658d78a3de9cfeda7cc29
 
 //Kontrollera om alla platser i oGameData.GameField är fyllda. Om sant returnera true, annars false.
 function checkForDraw() {}
