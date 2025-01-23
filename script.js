@@ -142,7 +142,7 @@ function prepGame() {
 function validateForm() {}
 
 let cells = document.querySelectorAll(`td`); //Hämtar samtliga celler med taggen td
-let nowPlayingPlayer = document.querySelector(`.jumbotron > h1`); // Hämtar ut H1 tagg till nowPlayingPlayer
+let jumpotronMsg = document.querySelector(`.jumbotron > h1`); // Hämtar ut H1 tagg till jumpotronMsg
 
 function initiateGame() {
   // let formRef = document.querySelector(`#theForm`); //hämtar hela formuläret och döljer det när spelet startat
@@ -184,9 +184,9 @@ function initiateGame() {
     oGameData.currentPlayer = oGameData.playerTwo;
   }
 
-  nowPlayingPlayer.innerText = `Aktuell spelare är ${playerName}`;
+  jumpotronMsg.innerText = `Aktuell spelare är ${playerName}`;
   //När spelet först startar så är det utifrån mathRandoms tal denna spelares som gör sitt första drag
-  console.log(nowPlayingPlayer);
+  console.log(jumpotronMsg);
 
   document.querySelector(`table`).addEventListener(`click`, executeMove);
 }
@@ -213,9 +213,9 @@ function executeMove(event) {
 
   // Applicera färg baserat på spelare
   if (oGameData.currentPlayer === oGameData.playerOne) {
-    cell.style.color = oGameData.colorPlayerOne;
+    cell.style.backgroundColor = oGameData.colorPlayerOne;
   } else {
-    cell.style.color = oGameData.colorPlayerTwo;
+    cell.style.backgroundColor = oGameData.colorPlayerTwo;
   }
 
   const gameStatus = checkForGameOver(); // Kontrollera spelets status
@@ -229,37 +229,19 @@ function executeMove(event) {
 function changePlayer() {
   if (oGameData.currentPlayer === oGameData.playerOne) {
     oGameData.currentPlayer = oGameData.playerTwo;
-    nowPlayingPlayer.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerTwo}`; //Skriver ut i H1 högst upp att det är nästa spelares tur
+    jumpotronMsg.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerTwo}`; //Skriver ut i H1 högst upp att det är nästa spelares tur
   } else {
     oGameData.currentPlayer = oGameData.playerOne;
-    nowPlayingPlayer.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerOne}`;
+    jumpotronMsg.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerOne}`;
   }
 }
 
 function timer() {}
 
 function gameOver(result) {
-
-
-  // kontrollerer hvem som vinner
-  let result;
-  if (checkWinner(1)) {
-    result = 1;
-    // spiller 1 vinner
-  } else if (checkWinner(2)) {
-    result = 2;
-    // spiller 2 vinner
-  } else if (oGameData.gameField.every(cell => cell !== '')) {
-    // sjekker om alle cellene er tomme. Ikke tom = tie/uavgjort.
-    result = 0;
-    // AKA ingen vinnere
-  }
-
-
   let gameTable = document.getElementById('gameArea');
-  gameTable.removeEventListener('click', disableClick);
+  gameTable.removeEventListener('click', executeMove);
   // gjør sånn at man ikke kan klikke på celler lengre
-
 
   gameTable.classList.add('d-none');
   // gjemmer/tar bort spelplanen
@@ -270,28 +252,26 @@ function gameOver(result) {
   // theForm = formRef? 
   // gjør at formulæret vises på siden igjen
 
-
+let playerName;
   let gameResult = '';
   if (result === 1) {
     gameResult = oGameData.playerOne;
     console.log(`Player ${oGameData.playerOne} wins!`);
+    playerName = oGameData.nickNamePlayerOne;
     // om resultatet er 1 = playerOne
   } else if (result === 2) {
     gameResult = oGameData.playerTwo;
     console.log(`Player ${oGameData.playerTwo} wins!`);
+    playerName = oGameData.nickNamePlayerTwo;
     // om resultatet er 2 = playerTwo
   } else {
     console.log('It ended in a tie! Try again...');
+    jumpotronMsg.innerText = `Det blev oavgjort! Spela igen?`;
     // om det ikke er noen vinnere
   }
-
-
-  let jumpotronMsg = document.querySelector('.jumbotron');
-  jumpotronMsg.innerText = `Spelare ${playerName} har vunnit! Spela igen?`;
-  console.log(jumpotronMsg);
+  // let jumpotronMsg = document.querySelector('.jumbotron');
   // skriver ut vinner-meddelande i jumbotronen
 
-
   initGlobalObject();
-  // ta bort () sånn at den ikke nullstiller alt før vi rekker å se resultatet?
 }
+// ta bort () sånn at den ikke nullstiller alt før vi rekker å se resultatet?
