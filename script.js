@@ -1,24 +1,13 @@
 "use strict";
-// TEST KOMMENTAR
 
-/**
- * Hej syns det här?
- * Globalt objekt som innehåller de attribut som ni skall använda.
- * Initieras genom anrop till funktionern initGlobalObject().
- */
+// Globalt objekt som innehåller de attribut som ni skall använda.
+// Initieras genom anrop till funktionern initGlobalObject().
+
 let oGameData = {};
 
 window.addEventListener("load", () => {
   initGlobalObject();
-  if (checkForGameOver() === 1) {
-    console.log("Spelare 1 vann");
-  } else if (checkForGameOver() === 2) {
-    console.log("Spelare 2 vann");
-  } else if (checkForGameOver() === 3) {
-    console.log("Oavgjort");
-  } else {
-    console.log("Spelet fortsätter");
-  }
+  prepGame();
 });
 
 /**
@@ -27,50 +16,23 @@ window.addEventListener("load", () => {
  * Funktionen returnerar inte något värde.
  */
 function initGlobalObject() {
-  //Datastruktur för vilka platser som är lediga respektive har brickor
-  //Genom at fylla i här med antingen X eler O kan ni testa era rättningsfunktioner.
-  oGameData.gameField = ["X", "X", "X", "", "", "", "", "", ""];
+  oGameData.gameField = ["", "", "", "", "", "", "", "", ""];
 
-  /* Testdata för att testa rättningslösning */
-  //oGameData.gameField = ['X', 'X', 'X', '', '', '', '', '', ''];
-  //oGameData.gameField = ['X', '', '', 'X', '', '', 'X', '', ''];
-  //oGameData.gameField = ['X', '', '', '', 'X', '', '', '', 'X'];
-  //oGameData.gameField = ['', '', 'X', '', 'X', '', 'X', '', ''];
-  //oGameData.gameField = ['X', 'O', 'X', '0', 'X', 'O', 'O', 'X', 'O'];
-
-  // legge alle gameFields inni et objekt???
-
-  //Indikerar tecknet som skall användas för spelare ett.
   oGameData.playerOne = "X";
-
-  //Indikerar tecknet som skall användas för spelare två.
   oGameData.playerTwo = "O";
 
-  //Kan anta värdet X eller O och indikerar vilken spelare som för tillfället skall lägga sin "bricka".
   oGameData.currentPlayer = "";
 
-  //Nickname för spelare ett som tilldelas från ett formulärelement,
   oGameData.nickNamePlayerOne = "";
-
-  //Nickname för spelare två som tilldelas från ett formulärelement.
   oGameData.nickNamePlayerTwo = "";
 
-  //Färg för spelare ett som tilldelas från ett formulärelement.
   oGameData.colorPlayerOne = "";
-
-  //Färg för spelare två som tilldelas från ett formulärelement.
   oGameData.colorPlayerTwo = "";
 
-  //Antalet sekunder för timerfunktionen
   oGameData.seconds = 5;
-
-  //Timerns ID
   oGameData.timerId = null;
-
-  //Från start är timern inaktiverad
   oGameData.timerEnabled = false;
 
-  //Referens till element för felmeddelanden
   oGameData.timeRef = document.querySelector("#errorMsg");
 }
 
@@ -150,9 +112,9 @@ function checkWinner(playerIn) {
 
 //Kontrollera om alla platser i oGameData.GameField är fyllda. Om sant returnera true, annars false.
 function checkForDraw() {
-  for (i = 0; i < oGameData.GameField.length; i++) {
+  for (let i = 0; i < oGameData.gameField.length; i++) {
     //Vi använder en for-loop till att loopa igenom antalet alternativ på spelbrädet
-    if (oGameData.GameField[i] === "") {
+    if (oGameData.gameField[i] === "") {
       // Om i (index) någon gång visar sig ha värdet "" kommer funktionen returnera false.
       return false;
     }
@@ -163,16 +125,84 @@ function checkForDraw() {
 
 // Nedanstående funktioner väntar vi med!
 
-function prepGame() {}
+//Här skall ni lägga till klassen "d-none" på elementet i DOM-en med id:t "gameArea",
+// samt lägga en lyssnare på "Starta spelet!"-knappen som lyssnar efter ett klick.
+// När den klickas skall ni anropa funktionen "initiateGame()".
+
+function prepGame() {
+  document.getElementById("gameArea").classList.add(`d-none`); // lägger till class d-none
+
+  document.getElementById("newGame").addEventListener("click", () => {
+    //Lägger till en lyssnare efter ett klick på knappen newGame, startar då initiateGame()
+    initiateGame();
+    console.log(newGame);
+  });
+}
 
 function validateForm() {}
 
-function initiateGame() {}
+let cells = document.querySelectorAll(`td`); //Hämtar samtliga celler med taggen td
+let nowPlayingPlayer = document.querySelector(`.jumbotron > h1`); // Hämtar ut H1 tagg till nowPlayingPlayer
+
+function initiateGame() {
+  // let formRef = document.querySelector(`#theForm`); //hämtar hela formuläret och döljer det när spelet startat
+  document.querySelector(`#theForm`).classList.add(`d-none`);
+
+  document.getElementById("gameArea").classList.remove(`d-none`); // tar bort classen d-none (display:none) för att synliggöra spelplanen när spelet startat
+
+  oGameData.timeRef.textContent = ``; //Ändrar texten med instruktioner till att vara en tom sträng
+
+  //Kopplar till id nick1 i inputfält för att komma åt value(det som spelare 1 KOMMER fylla i)
+  oGameData.nickNamePlayerOne = document.querySelector(`#nick1`).value;
+  //Kopplar till id color1 i inputfält för att komma åt value(färg) som spelare 1 väljer
+  oGameData.colorPlayerOne = document.querySelector(`#color1`).value;
+
+  oGameData.nickNamePlayerTwo = document.querySelector(`#nick2`).value;
+  oGameData.colorPlayerTwo = document.querySelector(`#color2`).value;
+
+  for (let cell of cells) {
+    //När spelet startar ska samtliga celler vara en tom sträng och bakgrunden vit
+    cell.innerText = ``;
+    cell.style.backgroundColor = `white`;
+  }
+
+  let playerChar = ``; //vad används egentligen playerChar till?
+  let playerName = ``;
+
+  let randomNumber = Math.random(); // Sparar ett slumpat tal från funktionen math.random mellan 0-1. Tar inga parametrar
+  console.log(randomNumber);
+
+  if (randomNumber < 0.5) {
+    //är talet mindre än 0.5 är det spelare 1 som börjar
+    playerChar = oGameData.playerOne;
+    playerName = oGameData.nickNamePlayerOne;
+    oGameData.currentPlayer = oGameData.playerOne;
+  } else {
+    //är talet större eller lika med 0.5 är det spelare 2 som börjar
+    playerChar = oGameData.playerTwo;
+    playerName = oGameData.nickNamePlayerTwo;
+    oGameData.currentPlayer = oGameData.playerTwo;
+  }
+
+  nowPlayingPlayer.innerText = `Aktuell spelare är ${playerName}`;
+  //När spelet först startar så är det utifrån mathRandoms tal denna spelares som gör sitt första drag
+  console.log(nowPlayingPlayer);
+
+  document.querySelector(`table`).addEventListener(`click`, executeMove);
+}
 
 function executeMove(event) {}
 
-function changePlayer() {}
+function changePlayer() {
+  if (oGameData.currentPlayer === oGameData.playerOne) {
+    oGameData.currentPlayer = oGameData.playerTwo;
+    nowPlayingPlayer.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerTwo}`; //Skriver ut i H1 högst upp att det är nästa spelares tur
+  } else {
+    oGameData.currentPlayer = oGameData.playerOne;
+    nowPlayingPlayer.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerOne}`;
+  }
+}
 
 function timer() {}
 
-function gameOver(result) {}
+function gameOver(winner) {}
