@@ -191,7 +191,40 @@ function initiateGame() {
   document.querySelector(`table`).addEventListener(`click`, executeMove);
 }
 
-function executeMove(event) {}
+function executeMove(event) {
+  /*// Om spelet är över, tillåt inga fler drag
+  if (oGameData.gameOver) {
+    oGameData.timeRef.textContent =
+      "Spelet är redan över. Starta ett nytt spel!";
+    return;
+  }
+  */
+  const cell = event.target; // Hämta cellen som klickades på
+  const cellIndex = parseInt(cell.getAttribute("data-id")); // Hämta cellens index
+
+  if (oGameData.gameField[cellIndex] !== "") {
+    oGameData.timeRef.textContent = "Cell redan upptagen. Välj en annan.";
+    return;
+  }
+
+  /*const currentSymbol = oGameData.currentPlayer; // Hämta aktuell spelares symbol*/
+  oGameData.gameField[cellIndex] = oGameData.currentPlayer; // Uppdatera spelplanen
+  cell.textContent = oGameData.currentPlayer; // Visa symbolen i cellen
+
+  // Applicera färg baserat på spelare
+  if (oGameData.currentPlayer === oGameData.playerOne) {
+    cell.style.color = oGameData.colorPlayerOne;
+  } else {
+    cell.style.color = oGameData.colorPlayerTwo;
+  }
+
+  const gameStatus = checkForGameOver(); // Kontrollera spelets status
+  if (gameStatus === 0) {
+    changePlayer(); // Byt till nästa spelare om spelet fortsätter
+  } else {
+    gameOver(gameStatus); // Spelet är över
+  }
+}
 
 function changePlayer() {
   if (oGameData.currentPlayer === oGameData.playerOne) {
