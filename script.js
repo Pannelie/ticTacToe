@@ -238,4 +238,60 @@ function changePlayer() {
 
 function timer() {}
 
-function gameOver(winner) {}
+function gameOver(result) {
+
+
+  // kontrollerer hvem som vinner
+  let result;
+  if (checkWinner(1)) {
+    result = 1;
+    // spiller 1 vinner
+  } else if (checkWinner(2)) {
+    result = 2;
+    // spiller 2 vinner
+  } else if (oGameData.gameField.every(cell => cell !== '')) {
+    // sjekker om alle cellene er tomme. Ikke tom = tie/uavgjort.
+    result = 0;
+    // AKA ingen vinnere
+  }
+
+
+  let gameTable = document.getElementById('gameArea');
+  gameTable.removeEventListener('click', disableClick);
+  // gjør sånn at man ikke kan klikke på celler lengre
+
+
+  gameTable.classList.add('d-none');
+  // gjemmer/tar bort spelplanen
+
+
+  let theForm = document.getElementById('theForm');
+  theForm.classList.remove('d-none');
+  // theForm = formRef? 
+  // gjør at formulæret vises på siden igjen
+
+
+  let gameResult = '';
+  if (result === 1) {
+    gameResult = oGameData.playerOne;
+    console.log(`Player ${oGameData.playerOne} wins!`);
+    // om resultatet er 1 = playerOne
+  } else if (result === 2) {
+    gameResult = oGameData.playerTwo;
+    console.log(`Player ${oGameData.playerTwo} wins!`);
+    // om resultatet er 2 = playerTwo
+  } else {
+    console.log('It ended in a tie! Try again...');
+    // om det ikke er noen vinnere
+  }
+
+
+  let jumpotronMsg = document.querySelector('.jumbotron');
+  jumpotronMsg.innerText = `Spelare ${playerName} har vunnit! Spela igen?`;
+  console.log(jumpotronMsg);
+  // skriver ut vinner-meddelande i jumbotronen
+
+
+  initGlobalObject();
+  // ta bort () sånn at den ikke nullstiller alt før vi rekker å se resultatet?
+}
