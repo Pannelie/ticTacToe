@@ -239,33 +239,34 @@ function changePlayer() {
 function timer() {}
 
 function gameOver(result) {
-  let gameTable = document.getElementById('gameArea');
-  gameTable.removeEventListener('click', executeMove);
+  let gameTable = document.getElementById("gameArea");
+  gameTable.removeEventListener("click", executeMove);
   // gjør sånn at man ikke kan klikke på celler lengre
 
-  gameTable.classList.add('d-none');
+  gameTable.classList.add("d-none");
   // gjemmer/tar bort spelplanen
 
-
-  let theForm = document.getElementById('theForm');
-  theForm.classList.remove('d-none');
-  // theForm = formRef? 
+  let theForm = document.getElementById("theForm");
+  theForm.classList.remove("d-none");
+  // theForm = formRef?
   // gjør at formulæret vises på siden igjen
 
-let playerName;
-  let gameResult = '';
+  let playerName;
+  let gameResult = "";
   if (result === 1) {
     gameResult = oGameData.playerOne;
-    console.log(`Player ${oGameData.playerOne} wins!`);
+    jumpotronMsg.innerText = `Player ${oGameData.playerOne} wins!`;
     playerName = oGameData.nickNamePlayerOne;
+    console.log(`Player 1 wins!`);
     // om resultatet er 1 = playerOne
   } else if (result === 2) {
     gameResult = oGameData.playerTwo;
-    console.log(`Player ${oGameData.playerTwo} wins!`);
+    jumpotronMsg.innerText = `Player ${oGameData.playerTwo} wins!`;
+    console.log(`Player 2 wins!`);
     playerName = oGameData.nickNamePlayerTwo;
     // om resultatet er 2 = playerTwo
   } else {
-    console.log('It ended in a tie! Try again...');
+    console.log("It ended in a tie! Try again...");
     jumpotronMsg.innerText = `Det blev oavgjort! Spela igen?`;
     // om det ikke er noen vinnere
   }
