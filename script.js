@@ -199,6 +199,7 @@ function executeMove(event) {
     return;
   }
   */
+  oGameData.timeRef.textContent = "";
   const cell = event.target; // Hämta cellen som klickades på
   const cellIndex = parseInt(cell.getAttribute("data-id")); // Hämta cellens index
 
