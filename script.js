@@ -255,13 +255,13 @@ function gameOver(result) {
   let gameResult = "";
   if (result === 1) {
     gameResult = oGameData.playerOne;
-    jumpotronMsg.innerText = `Player ${oGameData.playerOne} wins!`;
+    jumpotronMsg.innerText = `${oGameData.nickNamePlayerOne} (${oGameData.playerOne}) wins!`;
     playerName = oGameData.nickNamePlayerOne;
     console.log(`Player 1 wins!`);
     // om resultatet er 1 = playerOne
   } else if (result === 2) {
     gameResult = oGameData.playerTwo;
-    jumpotronMsg.innerText = `Player ${oGameData.playerTwo} wins!`;
+    jumpotronMsg.innerText = `${oGameData.nickNamePlayerTwo} (${oGameData.playerTwo}) wins!`;
     console.log(`Player 2 wins!`);
     playerName = oGameData.nickNamePlayerTwo;
     // om resultatet er 2 = playerTwo
