@@ -134,12 +134,68 @@ function prepGame() {
 
   document.getElementById("newGame").addEventListener("click", () => {
     //Lägger till en lyssnare efter ett klick på knappen newGame, startar då initiateGame()
-    initiateGame();
+    validateForm(); // BYTTET UT INITIATEGAME MED DENNE HER ----------------------------------------------------------------- <<<<<<<
     console.log(newGame);
   });
 }
 
-function validateForm() {}
+
+
+
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+document.querySelector('#theForm').addEventListener('submit', (event) => {
+  event.preventDefault(); // vet ikke om "event" fungerer i denne konteksten?
+  console.log('formulæret er sendt!');
+  validateForm();
+});
+
+
+function validateForm() {
+  console.log('validateForm()'); 
+// *** kontrollere at spillerens nickname ikke er mindre enn 3 eller større enn 10
+// *** valgt farge får ikke være svart eller hvit
+
+// LEVEL UP: input-feltet med feilen skal være i fokus (.focus), der borders er f.eks RØD.
+// (BONUS: spiller 2 får ikke velge samme farge som spiller 1)
+
+  oGameData.nickNamePlayerOne = document.querySelector(`#nick1`).value;
+  oGameData.colorPlayerOne = document.querySelector(`#color1`).value;
+  oGameData.nickNamePlayerTwo = document.querySelector(`#nick2`).value;
+  oGameData.colorPlayerTwo = document.querySelector(`#color2`).value;
+
+try {
+  if(oGameData.nickNamePlayerOne.length < 3 || 
+    oGameData.nickNamePlayerTwo.length < 3 ||
+    oGameData.nickNamePlayerOne.length > 10 ||
+    oGameData.nickNamePlayerTwo.length > 10) {
+      // om disse er oppfylte, om alle 4 er TRUE --> sjekker neste: else if 
+      throw new Error('Username must be between 3-10 characters.');
+      // kaster felmedellande til catch
+      
+    } else if(oGameData.colorPlayerOne === '#ffffff' || 
+      oGameData.colorPlayerTwo === '#ffffff' || 
+      oGameData.colorPlayerOne === '#000000' || 
+      oGameData.colorPlayerTwo === '#000000') {
+        // om spillerne *IKKE* har valgt (FFF = hvit) eller (000 = svart) fortsetter vi til neste: else if (om vi vil ha bonus if-satser ELLER level up if-satsen senere)
+      
+      console.log('Player One Color:' + oGameData.colorPlayerOne); // VELGER FARGE: STÅR AT DET ER UNDEFINED.
+      console.log('Player Two Color:' + oGameData.colorPlayerTwo); // FÅR FORTSATT FELMEDDELANDE "cannot choose white & black" NÅR MAN HAR VALGT T.EX ***RØD*** & ***BLÅ***
+
+      throw new Error('You cannot choose the color black or white.');
+      // kaster felmedellande til catch
+    } else {
+      initiateGame ();
+    }
+    document.querySelector('#errorMsg').textContent = ''; // NULLSTILLER FELMEDDELSANDE / GÅR BORT IGJEN (må få felmeddelande til att visas på --> jumbotronen <-- ELLER --> med en alert <--)
+
+} catch(error) {
+    console.log(error.message);
+    document.querySelector('#errorMsg').textContent = error.message;
+}
+}
 
 let cells = document.querySelectorAll(`td`); //Hämtar samtliga celler med taggen td
 let jumpotronMsg = document.querySelector(`.jumbotron > h1`); // Hämtar ut H1 tagg till jumpotronMsg
