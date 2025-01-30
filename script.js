@@ -36,14 +36,6 @@ function initGlobalObject() {
   oGameData.timeRef = document.querySelector("#errorMsg");
 }
 
-/**
- * Kontrollerar för tre i rad genom att anropa funktionen checkWinner() och checkForDraw().
- * Returnerar 0 om spelet skall fortsätta,
- * returnerar 1 om spelaren med ett kryss (X) är vinnare,
- * returnerar 2 om spelaren med en cirkel (O) är vinnare eller
- * returnerar 3 om det är oavgjort.
- * Funktionen tar inte emot några värden.
- */
 function checkForGameOver() {
   if (checkWinner(oGameData.playerOne)) {
     //Om detta är true så går den inte vidare till nästa else if. och returnerar värdet 1. Som ger console.log att spelareOne vinner
@@ -139,105 +131,96 @@ function prepGame() {
   });
 }
 
-
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-document.querySelector('#theForm').addEventListener('submit', (event) => {
-  event.preventDefault(); 
+document.querySelector("#theForm").addEventListener("submit", (event) => {
+  event.preventDefault();
   validateForm();
 });
 
-
 function validateForm() {
-  console.log('validateForm()'); 
+  console.log("validateForm()");
 
-  oGameData.nickNamePlayerOne = document.querySelector (`#nick1`).value;
-  oGameData.colorPlayerOne = document.querySelector (`#color1`).value;
-  oGameData.nickNamePlayerTwo = document.querySelector (`#nick2`).value;
-  oGameData.colorPlayerTwo = document.querySelector (`#color2`).value;
+  oGameData.nickNamePlayerOne = document.querySelector(`#nick1`).value;
+  oGameData.colorPlayerOne = document.querySelector(`#color1`).value;
+  oGameData.nickNamePlayerTwo = document.querySelector(`#nick2`).value;
+  oGameData.colorPlayerTwo = document.querySelector(`#color2`).value;
 
-try {
-  if(oGameData.nickNamePlayerOne.length < 3 || 
-    oGameData.nickNamePlayerOne.length > 10) {
-    document.querySelector (`#nick1`).focus(); 
-    nick1.style.border = '3px solid red'; 
-    throw new Error ('Username must be between 3-10 characters.');
-      
-  } else if (oGameData.nickNamePlayerOne === oGameData.nickNamePlayerTwo) {
-    document.querySelector (`#nick1`).focus(); 
-    nick1.style.border = '3px solid red'; 
-    throw new Error('You cannot choose the same name.');
-    } else 
-    
-    {document.querySelector (`#nick1`).blur(); 
-      document.querySelector(`#nick1`).style.removeProperty('border');
+  try {
+    if (
+      oGameData.nickNamePlayerOne.length < 3 ||
+      oGameData.nickNamePlayerOne.length > 10
+    ) {
+      document.querySelector(`#nick1`).focus();
+      nick1.style.border = "3px solid red";
+      throw new Error("Username must be between 3-10 characters.");
+    } else if (oGameData.nickNamePlayerOne === oGameData.nickNamePlayerTwo) {
+      document.querySelector(`#nick1`).focus();
+      nick1.style.border = "3px solid red";
+      throw new Error("You cannot choose the same name.");
+    } else {
+      document.querySelector(`#nick1`).blur();
+      document.querySelector(`#nick1`).style.removeProperty("border");
     }
 
+    if (
+      oGameData.nickNamePlayerTwo.length < 3 ||
+      oGameData.nickNamePlayerTwo.length > 10
+    ) {
+      document.querySelector(`#nick2`).focus();
+      nick2.style.border = "3px solid red";
+      throw new Error("Username must be between 3-10 characters.");
+    } else if (oGameData.nickNamePlayerOne === oGameData.nickNamePlayerTwo) {
+      document.querySelector(`#nick2`).focus();
+      nick2.style.border = "3px solid red";
+      throw new Error("You cannot choose the same name.");
+    } else {
+      document.querySelector(`#nick2`).blur();
+      document.querySelector(`#nick2`).style.removeProperty("border");
+    }
 
-    
-  if(oGameData.nickNamePlayerTwo.length < 3 ||
-      oGameData.nickNamePlayerTwo.length > 10) { 
-      document.querySelector (`#nick2`).focus();
-      nick2.style.border = '3px solid red';
-      throw new Error ('Username must be between 3-10 characters.');
-        
-    } else if (oGameData.nickNamePlayerOne === oGameData.nickNamePlayerTwo) { 
-      document.querySelector (`#nick2`).focus();
-      nick2.style.border = '3px solid red';
-      throw new Error('You cannot choose the same name.');
-      } else 
-      {document.querySelector (`#nick2`).blur();
-        document.querySelector(`#nick2`).style.removeProperty('border');
-      }
-
-
-    
-    if (oGameData.colorPlayerOne === '#ffffff' ||  
-      oGameData.colorPlayerOne === '#000000') {
-
-      document.querySelector (`#color1`).focus();
+    if (
+      oGameData.colorPlayerOne === "#ffffff" ||
+      oGameData.colorPlayerOne === "#000000"
+    ) {
+      document.querySelector(`#color1`).focus();
       // Rød border rundt båda INPUT-feltene, ikke bare en av dem
-      document.querySelector (`#color1`).style.border = '3px solid red'; 
+      document.querySelector(`#color1`).style.border = "3px solid red";
 
-      throw new Error ('You cannot choose the color black or white.');
-
+      throw new Error("You cannot choose the color black or white.");
     } else if (oGameData.colorPlayerOne === oGameData.colorPlayerTwo) {
-      document.querySelector (`#color1`).focus();
-      document.querySelector (`#color1`).style.border = '3px solid red'; 
-      throw new Error('You cannot choose the same color.');
-    } else {document.querySelector (`#color1`).blur();
-      document.querySelector(`#color1`).style.removeProperty('border');
+      document.querySelector(`#color1`).focus();
+      document.querySelector(`#color1`).style.border = "3px solid red";
+      throw new Error("You cannot choose the same color.");
+    } else {
+      document.querySelector(`#color1`).blur();
+      document.querySelector(`#color1`).style.removeProperty("border");
     }
 
+    if (
+      oGameData.colorPlayerTwo === "#ffffff" ||
+      oGameData.colorPlayerTwo === "#000000"
+    ) {
+      document.querySelector(`#color2`).focus();
+      // Rød border rundt båda INPUT-feltene, ikke bare en av dem
+      document.querySelector(`#color2`).style.border = "3px solid red";
+      throw new Error("You cannot choose the color black or white.");
+    } else if (oGameData.colorPlayerOne === oGameData.colorPlayerTwo) {
+      document.querySelector(`#color2`).focus();
+      document.querySelector(`#color2`).style.border = "3px solid red";
+      throw new Error("You cannot choose the same color.");
+    } else {
+      document.querySelector(`#color2`).blur();
+      document.querySelector(`#color2`).style.removeProperty("border");
+    }
+    initiateGame();
 
-
-      if (oGameData.colorPlayerTwo === '#ffffff' || 
-        oGameData.colorPlayerTwo === '#000000') {
-  
-        document.querySelector (`#color2`).focus();
-        // Rød border rundt båda INPUT-feltene, ikke bare en av dem
-        document.querySelector (`#color2`).style.border = '3px solid red';
-        throw new Error ('You cannot choose the color black or white.');
-  
-      } else if (oGameData.colorPlayerOne === oGameData.colorPlayerTwo) {
-        document.querySelector (`#color2`).focus();
-        document.querySelector (`#color2`).style.border = '3px solid red';
-        throw new Error('You cannot choose the same color.');
-      } else {
-        document.querySelector (`#color2`).blur();
-        document.querySelector(`#color2`).style.removeProperty('border');
-      } 
-        initiateGame ();
-      
-
-    document.querySelector('#errorMsg').textContent = ''; // NULLSTILLER FELMEDDELSANDE
-
-      } catch (error) {
-          console.log(error.message);
-          document.querySelector('#errorMsg').textContent = error.message;
-      }
-      
-      }
+    document.querySelector("#errorMsg").textContent = ""; // NULLSTILLER FELMEDDELSANDE
+  } catch (error) {
+    console.log(error.message);
+    document.querySelector("#errorMsg").textContent = error.message;
+  }
+}
 
 let cells = document.querySelectorAll(`td`); //Hämtar samtliga celler med taggen td
 let jumpotronMsg = document.querySelector(`.jumbotron > h1`); // Hämtar ut H1 tagg till jumpotronMsg
@@ -329,16 +312,43 @@ function changePlayer() {
   if (oGameData.currentPlayer === oGameData.playerOne) {
     oGameData.currentPlayer = oGameData.playerTwo;
     jumpotronMsg.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerTwo}`; //Skriver ut i H1 högst upp att det är nästa spelares tur
+    timer();
   } else {
     oGameData.currentPlayer = oGameData.playerOne;
     jumpotronMsg.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerOne}`;
+    timer();
   }
 }
 
-function timer() {}
+function timer() {
+  console.log(`Timer startar`);
+
+  oGameData.seconds = 5;
+  oGameData.timeRef.textContent = `Time left: 5s`;
+  oGameData.timerEnabled = false;
+
+  // Stoppa tidigare timer om den finns
+  if (oGameData.timerId) {
+    clearInterval(oGameData.timerId);
+  }
+
+  // Starta nedräkning
+  oGameData.timerId = setInterval(() => {
+    oGameData.seconds--;
+    oGameData.timeRef.textContent = `Time left: ${oGameData.seconds}s`;
+
+    // Om sekunderna når 0, stoppa timern och byt spelare
+    if (oGameData.seconds <= 0) {
+      clearInterval(oGameData.timerId);
+      console.log(`Tiden är ute! Nästa spelares tur!`);
+      changePlayer();
+    }
+  }, 1000);
+}
 
 function gameOver(result) {
   let gameTable = document.getElementById("gameArea");
+  oGameData.timeRef = `Grattis!`;
   gameTable.removeEventListener("click", executeMove);
   // gjør sånn at man ikke kan klikke på celler lengre
 
