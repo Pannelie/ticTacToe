@@ -281,7 +281,7 @@ function executeMove(event) {
     return;
   }
   */
-  oGameData.timeRef.textContent = "";
+  // oGameData.timeRef.textContent = "";
   const cell = event.target; // Hämta cellen som klickades på
   const cellIndex = parseInt(cell.getAttribute("data-id")); // Hämta cellens index
 
@@ -350,6 +350,7 @@ function timer() {
 function gameOver(result) {
   let gameTable = document.getElementById("gameArea");
   oGameData.timeRef = `Grattis!`;
+  clearTimeout(oGameData.timerId);
   gameTable.removeEventListener("click", executeMove);
   // gjør sånn at man ikke kan klikke på celler lengre
 
