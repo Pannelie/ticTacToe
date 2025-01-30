@@ -231,7 +231,7 @@ function initiateGame() {
 
   document.getElementById("gameArea").classList.remove(`d-none`); // tar bort classen d-none (display:none) för att synliggöra spelplanen när spelet startat
 
-  oGameData.timeRef.textContent = ``; //Ändrar texten med instruktioner till att vara en tom sträng
+  oGameData.timeRef.textContent = `Time left: 5s`;
 
   //Kopplar till id nick1 i inputfält för att komma åt value(det som spelare 1 KOMMER fylla i)
   oGameData.nickNamePlayerOne = document.querySelector(`#nick1`).value;
@@ -270,6 +270,7 @@ function initiateGame() {
   console.log(jumpotronMsg);
 
   document.querySelector(`table`).addEventListener(`click`, executeMove);
+  timer();
 }
 
 function executeMove(event) {
